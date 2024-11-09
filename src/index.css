@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.root,
+#root,
+#docs-root {
+  --primary-color: #2825f5;
+  --secondary-color: #2461f5;
+  --todo-color: #477bf5;
+  --purple-color: #6316F5
+}

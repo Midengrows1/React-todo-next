@@ -1,0 +1,12 @@
+.todoItem
+    @apply flex bg-slate-600  justify-between p-4 items-center gap-4 rounded-md
+    &__title
+        @apply text-left flex-1 font-semibold overflow-hidden text-nowrap whitespace-nowrap text-ellipsis
+    &__btns
+        @apply flex gap-5
+        & > *
+            @apply rounded-md py-2 px-4 text-center
+        &__delete
+            @apply hover:bg-red-600 transition-all duration-150 ease-linear text-white
+        &__edit
+            @apply hover:bg-primary-2-color transition-all duration-150 ease-linear text-white

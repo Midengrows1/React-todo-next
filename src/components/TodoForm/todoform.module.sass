@@ -1,0 +1,12 @@
+.todo_form
+    @apply p-5 min-h-max max-h-max w-full
+    &__inner
+        @apply flex  justify-between w-full text-white gap-4 relative
+        &__input
+            @apply flex-1 outline-none outline-blue-600 outline-offset-0  text-black px-2 rounded-md
+        &__addBtn
+            @apply bg-green-600 py-1 px-6 rounded-md
+        &__dropDown
+            @apply absolute right-0 top-9 flex flex-col gap-2
+            & > *
+                @apply bg-slate-600 rounded-md p-2 text-center hover:text-blue-500 cursor-pointer hover:scale-105 transition-all duration-150 ease-linear
