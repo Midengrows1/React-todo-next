@@ -7,7 +7,6 @@ import React, { useEffect, useRef, useState, forwardRef } from "react";
 import s from "./todoitem.module.sass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCheckCircle,
   faPenToSquare,
   faSquareCheck,
   faTrash,
@@ -15,7 +14,7 @@ import {
 interface ItodoItem extends ITodo {}
 
 const TodoItem = forwardRef<HTMLDivElement, ItodoItem>(
-  ({ id, title, completed }, ref) => {
+  ({ id, title, completed, category }, ref) => {
     const dispatch = useAppDispatch();
     const [editStatus, setEditStatus] = useState<boolean>(false);
     const [editValue, setEditValue] = useState<string>("");
@@ -53,7 +52,10 @@ const TodoItem = forwardRef<HTMLDivElement, ItodoItem>(
             onChange={(e) => setEditValue(e.target.value)}
           />
         ) : (
-          <p className={s.todoItem__title}>{title}</p>
+          <div className={s.todoItem__title_wrapper}>
+            <p>{title}</p>
+            <span>{category}</span>
+          </div>
         )}
         <div className={s.todoItem__btns}>
           <button

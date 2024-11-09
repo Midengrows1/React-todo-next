@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-type CategoryTypes = "home" | "work" | "one day";
+import { CategoryTypes } from "../types/data";
 type Todo = {
   id: number;
   title: string;
