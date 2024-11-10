@@ -11,6 +11,7 @@ import {
   faSquareCheck,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import CustomInput from "../CustomInput/CustomInput";
 interface ItodoItem extends ITodo {}
 
 const TodoItem = forwardRef<HTMLDivElement, ItodoItem>(
@@ -44,7 +45,7 @@ const TodoItem = forwardRef<HTMLDivElement, ItodoItem>(
           onChange={() => dispatch(toggleComplete(id))}
         />
         {editStatus ? (
-          <input
+          <CustomInput
             type="text"
             value={editValue}
             onKeyDown={handleKeyDown}

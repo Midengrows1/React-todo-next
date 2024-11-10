@@ -5,6 +5,7 @@ const Header = () => {
       <h1 className={s.header__title}>Todo List</h1>
       <nav className={s.header__navigation}>
         <ul className={s.header__navigation__links}>
+          <li>All</li>
           <li>Home</li>
           <li>Work</li>
           <li>One day</li>

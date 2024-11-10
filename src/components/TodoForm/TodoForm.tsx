@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { addTodo } from "../../store/todoSlice";
 import { motion, AnimatePresence } from "framer-motion";
 import { easeInOut } from "framer-motion/dom";
+import CustomInput from "../CustomInput/CustomInput";
 const TodoForm: React.FC = () => {
   const [value, setValue] = useState("");
   const [isShowed, setisShowed] = useState<boolean>(false);
@@ -29,7 +30,7 @@ const TodoForm: React.FC = () => {
       },
     }),
   };
-  const todoCategories = ["home", "work", "one day"] as const;
+  const todoCategories = ["all", "home", "work", "one day"] as const;
   type TodoCategory = (typeof todoCategories)[number];
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -61,7 +62,7 @@ const TodoForm: React.FC = () => {
   return (
     <div className={s.todo_form}>
       <div className={s.todo_form__inner}>
-        <input
+        <CustomInput
           className={s.todo_form__inner__input}
           type="text"
           placeholder="Todo..."
