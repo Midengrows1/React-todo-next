@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./tasks.module.sass";
 import { useAppSelector } from "../../../hook";
 import MotionTodoItem from "../TodoItem/TodoItem";
 import { motion, AnimatePresence } from "framer-motion";
 const Tasks: React.FC = () => {
-  const { list } = useAppSelector((state) => state.todos);
+  const { list: todos, specialCategory } = useAppSelector(
+    (state) => state.todos
+  );
+  useEffect(()=>{
+    
+  }, [todos])
   const itemVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: { opacity: 1, y: 0 },
@@ -14,7 +19,7 @@ const Tasks: React.FC = () => {
     <div className={s.tasks}>
       <motion.ul>
         <AnimatePresence>
-          {list.map((todo) => (
+          {specialCategory.map((todo) => (
             <MotionTodoItem
               key={todo.id}
               {...todo}

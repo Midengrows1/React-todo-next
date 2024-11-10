@@ -8,10 +8,12 @@ type Todo = {
 };
 type todosState = {
   list: Todo[];
+  specialCategory: Todo[];
 };
 
 const initialState: todosState = {
   list: [],
+  specialCategory: [],
 };
 const todoSlice = createSlice({
   name: "todos",
@@ -29,23 +31,43 @@ const todoSlice = createSlice({
       });
     },
     toggleComplete(state, action: PayloadAction<number>): void {
-      const toggledTodo = state.list.find((todo) => todo.id === action.payload);
+      const toggledTodo = state.specialCategory.find(
+        (todo) => todo.id === action.payload
+      );
       if (toggledTodo) {
         toggledTodo.completed = !toggledTodo.completed;
       }
     },
     removeTodo(state, action: PayloadAction<number>): void {
-      state.list = state.list.filter((todo) => todo.id !== action.payload);
+      state.specialCategory = state.specialCategory.filter(
+        (todo) => todo.id !== action.payload
+      );
     },
     editTodo(state, action: PayloadAction<{ title: string; id: number }>) {
-      const todo = state.list.find((todo) => todo.id === action.payload.id);
+      const todo = state.specialCategory.find(
+        (todo) => todo.id === action.payload.id
+      );
       if (todo) {
         todo.title = action.payload.title;
+      }
+    },
+    filterCategories(state, action: PayloadAction<string>): void {
+      if (action.payload === "all") {
+        state.specialCategory = state.list;
+      } else {
+        state.specialCategory = state.list.filter(
+          (todo) => todo.category === action.payload
+        );
       }
     },
   },
 });
 
-export const { addTodo, toggleComplete, removeTodo, editTodo } =
-  todoSlice.actions;
+export const {
+  addTodo,
+  toggleComplete,
+  removeTodo,
+  editTodo,
+  filterCategories,
+} = todoSlice.actions;
 export default todoSlice.reducer;

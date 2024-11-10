@@ -3,8 +3,9 @@ import {
   faTrash,
   faPenToSquare,
   faCheckCircle,
-  faSquareCheck
+  faSquareCheck,
+  faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Add icons to the library
-library.add(faTrash, faPenToSquare, faCheckCircle, faSquareCheck);
+library.add(faTrash, faPenToSquare, faCheckCircle, faSquareCheck, faHouse);

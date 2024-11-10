@@ -30,7 +30,7 @@ const TodoForm: React.FC = () => {
       },
     }),
   };
-  const todoCategories = ["all", "home", "work", "one day"] as const;
+  const todoCategories = ["home", "work", "one day"] as const;
   type TodoCategory = (typeof todoCategories)[number];
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
