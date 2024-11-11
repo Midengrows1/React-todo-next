@@ -72,6 +72,17 @@ const todoSlice = createSlice({
       });
       state.specialCategory = state.list;
     },
+    findTodos(state, action: PayloadAction<string>) {
+      const foundedTodos = state.list.filter((todo: Todo) =>
+        todo.title
+          .trim()
+          .toLowerCase()
+          .includes(action.payload.trim().toLowerCase())
+      );
+      if (foundedTodos) {
+        state.specialCategory = foundedTodos;
+      }
+    },
   },
 });
 
@@ -83,5 +94,6 @@ export const {
   filterCategories,
   deleteAllTodos,
   checkAll,
+  findTodos,
 } = todoSlice.actions;
 export default todoSlice.reducer;

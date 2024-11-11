@@ -10,8 +10,9 @@ import {
   faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import CustomButton from "../CustomButton/CustomButton";
-import { deleteAllTodos } from "../../store/todoSlice";
+import { deleteAllTodos, findTodos } from "../../store/todoSlice";
 import { checkAll } from "../../store/todoSlice";
+import CustomInput from "../CustomInput/CustomInput";
 const Tasks: React.FC = () => {
   const { list: todos, specialCategory } = useAppSelector(
     (state) => state.todos
@@ -21,6 +22,9 @@ const Tasks: React.FC = () => {
     hidden: { opacity: 0, y: -20 },
     visible: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: 20 },
+  };
+  const findTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(findTodos(e.target.value));
   };
   return (
     <div className={s.tasks}>
@@ -37,6 +41,9 @@ const Tasks: React.FC = () => {
           text="Check all"
           onClick={() => dispatch(checkAll())}
         />
+      </div>
+      <div className={s.tasks__search}>
+        <CustomInput placeholder="Search..." onChange={(e) => findTodo(e)} />
       </div>
       <motion.ul>
         <AnimatePresence>
