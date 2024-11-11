@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import s from "./custominput.module.sass";
+import "./custominput.sass";
 import clsx from "clsx";
 interface IInputProps {
   placeholder?: string;
@@ -19,7 +19,7 @@ const CustomInput = forwardRef<HTMLInputElement, IInputProps>(
     return (
       <input
         type={type}
-        className={clsx(s.customInput, { [className!]: className })}
+        className={clsx("customInput", className)}
         placeholder={placeholder}
         onChange={onChange}
         onKeyDown={onKeyDown}

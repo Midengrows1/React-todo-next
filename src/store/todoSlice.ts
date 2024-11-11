@@ -23,33 +23,35 @@ const todoSlice = createSlice({
       state,
       action: PayloadAction<{ title: string; category: CategoryTypes }>
     ): void {
-      state.list.push({
-        id: Math.round(Math.random() * 100),
-        title: action.payload.title,
-        category: action.payload.category,
-        completed: false,
-      });
+      state.list = [
+        ...state.list,
+        {
+          id: Math.round(Math.random() * 100),
+          title: action.payload.title,
+          category: action.payload.category,
+          completed: false,
+        },
+      ];
+      state.specialCategory = state.list;
+      console.log(state.specialCategory);
     },
     toggleComplete(state, action: PayloadAction<number>): void {
-      const toggledTodo = state.specialCategory.find(
-        (todo) => todo.id === action.payload
-      );
+      const toggledTodo = state.list.find((todo) => todo.id === action.payload);
       if (toggledTodo) {
         toggledTodo.completed = !toggledTodo.completed;
       }
+      state.specialCategory = state.list;
     },
     removeTodo(state, action: PayloadAction<number>): void {
-      state.specialCategory = state.specialCategory.filter(
-        (todo) => todo.id !== action.payload
-      );
+      state.list = state.list.filter((todo) => todo.id !== action.payload);
+      state.specialCategory = state.list;
     },
     editTodo(state, action: PayloadAction<{ title: string; id: number }>) {
-      const todo = state.specialCategory.find(
-        (todo) => todo.id === action.payload.id
-      );
+      const todo = state.list.find((todo) => todo.id === action.payload.id);
       if (todo) {
         todo.title = action.payload.title;
       }
+      state.specialCategory = state.list;
     },
     filterCategories(state, action: PayloadAction<string>): void {
       if (action.payload === "all") {
@@ -60,6 +62,16 @@ const todoSlice = createSlice({
         );
       }
     },
+    deleteAllTodos(state) {
+      state.list = [];
+      state.specialCategory = [];
+    },
+    checkAll(state): void {
+      state.list = state.list.map((todo: Todo) => {
+        return { ...todo, completed: true };
+      });
+      state.specialCategory = state.list;
+    },
   },
 });
 
@@ -69,5 +81,7 @@ export const {
   removeTodo,
   editTodo,
   filterCategories,
+  deleteAllTodos,
+  checkAll,
 } = todoSlice.actions;
 export default todoSlice.reducer;

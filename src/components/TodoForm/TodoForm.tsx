@@ -63,7 +63,6 @@ const TodoForm: React.FC = () => {
     <div className={s.todo_form}>
       <div className={s.todo_form__inner}>
         <CustomInput
-          className={s.todo_form__inner__input}
           type="text"
           placeholder="Todo..."
           value={value}

@@ -11,10 +11,7 @@ import {
 const Header = () => {
   const dispatch = useAppDispatch();
 
-  const showCategories = (
-    e: React.MouseEventHandler<HTMLLIElement>,
-    title: string
-  ) => {
+  const showCategories = (title: string) => {
     dispatch(filterCategories(title));
   };
   const todoCategories1 = [
@@ -42,7 +39,7 @@ const Header = () => {
       <nav className={s.header__navigation}>
         <ul className={s.header__navigation__links}>
           {todoCategories1.map(({ title, icon }, index: number) => (
-            <li key={index} onClick={(e) => showCategories(e, title)}>
+            <li key={index} onClick={() => showCategories(title)}>
               {title.toUpperCase()}
               <span>
                 <FontAwesomeIcon icon={icon}></FontAwesomeIcon>
