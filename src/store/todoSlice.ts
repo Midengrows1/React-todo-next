@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CategoryTypes } from "../types/data";
 type Todo = {
   id: number;
@@ -9,12 +9,35 @@ type Todo = {
 type todosState = {
   list: Todo[];
   specialCategory: Todo[];
+  fetchedList: [] | unknown;
+  loading: boolean;
+  error: string | null;
 };
 
 const initialState: todosState = {
   list: [],
   specialCategory: [],
+  fetchedList: [],
+  loading: false,
+  error: null
 };
+
+export const fetchTodos = createAsyncThunk<
+  Todo[],
+  undefined,
+  { rejectValue: string }
+>("todos/fetchTodos", async function (_, { rejectWithValue }) {
+  const response = await fetch(
+    "https://jsonplaceholder.typecode.com/todos?_limit=10"
+  );
+
+  if (!response.ok) {
+    return rejectWithValue("Server error!");
+  }
+  const data = await response.json();
+  return data;
+});
+
 const todoSlice = createSlice({
   name: "todos",
   initialState,
@@ -29,8 +52,8 @@ const todoSlice = createSlice({
           id: Math.round(Math.random() * 100),
           title: action.payload.title,
           category: action.payload.category,
-          completed: false,
-        },
+          completed: false
+        }
       ];
       state.specialCategory = state.list;
       console.log(state.specialCategory);
@@ -82,8 +105,18 @@ const todoSlice = createSlice({
       if (foundedTodos) {
         state.specialCategory = foundedTodos;
       }
-    },
+    }
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTodos.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        state.fetchedList = action.payload;
+      });
+  }
 });
 
 export const {
@@ -94,6 +127,6 @@ export const {
   filterCategories,
   deleteAllTodos,
   checkAll,
-  findTodos,
+  findTodos
 } = todoSlice.actions;
 export default todoSlice.reducer;

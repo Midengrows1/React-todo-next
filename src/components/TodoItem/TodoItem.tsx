@@ -9,9 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
   faSquareCheck,
-  faTrash,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import CustomInput from "../CustomInput/CustomInput";
+import clsx from "clsx";
 interface ItodoItem extends ITodo {}
 
 const TodoItem = forwardRef<HTMLDivElement, ItodoItem>(
@@ -55,7 +56,13 @@ const TodoItem = forwardRef<HTMLDivElement, ItodoItem>(
         ) : (
           <div className={s.todoItem__title_wrapper}>
             <p>{title}</p>
-            <span>{category}</span>
+            <span
+              className={clsx(s.todoItem__title_wrapper__category, {
+                [s.done]: completed
+              })}
+            >
+              {category}
+            </span>
           </div>
         )}
         <div className={s.todoItem__btns}>
